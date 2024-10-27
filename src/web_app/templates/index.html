@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags for charset, viewport settings for responsiveness, and page title -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ContractScout</title>
-
-    <!-- Importing Tailwind CSS for utility-based styling and custom styles for added effects -->
+    <title>Smart Contract Analyzer Pro</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Primary and accent colors for a modern, sleek interface */
         :root {
             --primary-light: #4F46E5;
             --accent-light: #EC4899;
         }
 
-        /* Keyframe animation for background gradient */
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Body with animated background gradient for a dynamic feel */
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: all 0.3s ease;
             min-height: 100vh;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
         }
 
-        /* Glass-effect container with backdrop blur for a smooth, polished look */
         .glass-container {
             backdrop-filter: blur(20px);
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Additional shadow for main container to create a floating effect */
         .main-container {
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
 
-        /* Gradient text for a modern branding element */
         .gradient-text {
             background: linear-gradient(135deg, #6366F1, #EC4899);
             -webkit-background-clip: text;
@@ -52,59 +44,74 @@
             font-weight: 800;
         }
 
-        /* Styling file-drop zone for better visual feedback during drag-and-drop */
         .file-drop-zone {
             border: 3px dashed #CBD5E1;
             background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
         }
 
-        /* Button with gradient background and hover effects */
+        .file-drop-zone:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
         .custom-button {
             background: linear-gradient(45deg, var(--primary-light), var(--accent-light));
             font-weight: 600;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
         }
 
-        /* Custom input field styling for a user-friendly interface */
+        .custom-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+        }
+
         .input-field {
             font-size: 1.1rem;
             font-weight: 500;
+            letter-spacing: 0.015em;
         }
 
-        /* Highlight box for analysis result */
         .highlight-box {
             border-left: 4px solid var(--primary-light);
             background: rgba(79, 70, 229, 0.1);
         }
 
-        /* Loading spinner styling */
         .loading-spinner {
             border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
             border-top: 4px solid #fff;
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body class="p-4 md:p-8 flex items-center justify-center">
-    <!-- Main container with centered layout for content display -->
     <div class="main-container max-w-5xl w-full mx-auto rounded-2xl overflow-hidden">
         <div class="glass-container p-8 md:p-12">
             <header class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-                    <span class="gradient-text">ContractScout</span>
+                    <span class="gradient-text">Smart Contract Analyzer Pro</span>
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600">
                     Advanced contract analysis powered by AI
                 </p>
             </header>
 
-            <!-- Form for uploading the contract and asking analysis questions -->
             <form id="uploadForm" class="space-y-8">
-                <!-- File-drop zone for user to upload contract file by dragging and dropping -->
                 <div class="file-drop-zone p-10 rounded-xl text-center cursor-pointer hover:shadow-xl transition-all">
                     <label class="cursor-pointer block">
                         <input type="file" id="fileUpload" name="file" accept=".pdf, .txt" class="hidden" required />
                         <div class="space-y-6">
-                            <!-- SVG icon to indicate file upload visually -->
                             <svg class="mx-auto h-16 w-16 text-indigo-500" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -118,7 +125,6 @@
                     </label>
                 </div>
 
-                <!-- Text input for user to specify questions about the contract -->
                 <div class="space-y-4">
                     <label for="questionInput" class="block text-lg font-semibold text-gray-700">
                         What would you like to know about the contract?
@@ -128,7 +134,6 @@
                            placeholder="e.g., What are the payment terms?" required />
                 </div>
 
-                <!-- Submit button with loading spinner for visual feedback on form submission -->
                 <button type="submit" class="custom-button w-full py-4 px-8 text-white text-lg rounded-xl">
                     <span class="flex items-center justify-center">
                         <span>Analyze Contract</span>
@@ -137,7 +142,6 @@
                 </button>
             </form>
 
-            <!-- Result section to display analysis output -->
             <div id="result" class="mt-12 space-y-6 hidden">
                 <h2 class="text-2xl font-bold text-gray-800">Analysis Results</h2>
                 <div id="infoOutput" class="highlight-box p-6 rounded-xl"></div>
@@ -146,16 +150,13 @@
         </div>
     </div>
 
-    <!-- JavaScript for handling file upload, form submission, and result display -->
     <script>
-        // Selecting relevant form elements and defining functions to handle drag-and-drop
         const form = document.getElementById('uploadForm');
         const dropZone = document.querySelector('.file-drop-zone');
         const fileInput = document.getElementById('fileUpload');
         const spinner = document.querySelector('.loading-spinner');
         const resultDiv = document.getElementById('result');
 
-        // Preventing default behavior for drag events for better UX
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, preventDefaults, false);
         });
@@ -165,39 +166,110 @@
             e.stopPropagation();
         }
 
-        // Visual feedback on dragging over drop zone
         ['dragenter', 'dragover'].forEach(eventName => {
             dropZone.addEventListener(eventName, () => {
                 dropZone.classList.add('ring-4', 'ring-indigo-500', 'ring-opacity-50');
             });
         });
 
-        // Removing visual feedback on leaving drop zone
         ['dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, () => {
                 dropZone.classList.remove('ring-4', 'ring-indigo-500', 'ring-opacity-50');
             });
         });
 
-        // Handling file drop event
         dropZone.addEventListener('drop', (e) => {
-            fileInput.files = e.dataTransfer.files;
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            updateFileName(files[0].name);
         });
 
-        // Submitting form and showing loading spinner
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                updateFileName(e.target.files[0].name);
+            }
+        });
+
+        function updateFileName(fileName) {
+            const fileNameDisplay = document.createElement('div');
+            fileNameDisplay.className = 'mt-4 text-sm text-indigo-600';
+            fileNameDisplay.textContent = `Selected file: ${fileName}`;
+            
+            const existingDisplay = dropZone.querySelector('.mt-4');
+            if (existingDisplay) {
+                existingDisplay.remove();
+            }
+            dropZone.appendChild(fileNameDisplay);
+        }
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            spinner.classList.remove('hidden');
-            resultDiv.classList.add('hidden');
+            const formData = new FormData(form);
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            try {
+                submitButton.disabled = true;
+                spinner.classList.remove('hidden');
+                resultDiv.classList.add('hidden');
 
-            // Simulating a delay for the contract analysis (replace with actual server call)
-            setTimeout(() => {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
                 resultDiv.classList.remove('hidden');
+                
+                if (data.answer) {
+                    document.getElementById('modelAnswer').innerHTML = `
+                        <div class="prose max-w-none">
+                            <div class="text-lg leading-relaxed text-gray-800">
+                                ${data.answer}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('modelAnswer').innerHTML = `
+                        <div class="text-lg text-red-500">
+                            No relevant information found in the document.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('modelAnswer').innerHTML = `
+                    <div class="text-lg font-medium p-4 bg-red-50 rounded-lg">
+                        <div class="text-red-600">
+                            <p>An error occurred while processing the document.</p>
+                            <p class="text-sm mt-2">Please try again or contact support if the problem persists.</p>
+                        </div>
+                    </div>
+                `;
+            } finally {
+                submitButton.disabled = false;
                 spinner.classList.add('hidden');
-                document.getElementById('infoOutput').innerText = "Contract successfully analyzed!";
-                document.getElementById('modelAnswer').innerText = "Answer: This contract states that payment terms are 30 days from the invoice date.";
-            }, 1500);
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         });
+
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                dropZone.classList.add('scale-105');
+                setTimeout(() => dropZone.classList.remove('scale-105'), 200);
+            }
+        });
+
+        dropZone.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+
+        dropZone.setAttribute('tabindex', '0');
+        dropZone.setAttribute('role', 'button');
+        dropZone.setAttribute('aria-label', 'Upload contract file');
     </script>
 </body>
 </html>
