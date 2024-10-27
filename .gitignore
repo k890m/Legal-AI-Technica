@@ -1,2 +1,5 @@
 /venv
 /data/unzipped_data
+/models
+.vscode
+/uploads

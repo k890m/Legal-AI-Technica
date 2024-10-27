@@ -3,3 +3,8 @@ Flask
 scikit-learn
 matplotlib
 seaborn
+transformers
+torch
+tensorboardX
+json
+PyPDF2

@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contract Info Extractor</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
     <div class="container">
-        <h1>Contract Information Extractor</h1>
-        <form id="uploadForm">
-            <label for="fileUpload" class="file-label">Upload Contract:</label>
-            <input type="file" id="fileUpload" name="file">
-            <button type="submit">Extract Information</button>
-        </form>
-        <div id="result">
-            <h2>Extracted Information</h2>
-            <pre id="infoOutput"></pre>
-        </div>
+      <h1>Contract Information Extractor</h1>
+      <form id="uploadForm">
+        <label for="fileUpload" class="file-label">Upload Contract:</label>
+        <input
+          type="file"
+          id="fileUpload"
+          name="file"
+          accept=".pdf, .txt"
+          required
+        />
+
+        <label for="questionInput" class="question-label">Enter Your Question:</label>
+        <input
+          type="text"
+          id="questionInput"
+          name="question"
+          placeholder="Type your question here"
+          required
+        />
+
+        <button type="submit">Extract Information</button>
+      </form>
+      <div id="result">
+        <h2>Extracted Information</h2>
+        <div id="infoOutput"></div>
+        <div id="modelAnswer"></div>
+      </div>
     </div>
-    <script src="/static/js/script.js"></script>
-</body>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
 </html>

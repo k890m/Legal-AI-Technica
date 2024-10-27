@@ -18,10 +18,10 @@ print(f"Duplicate Entries in Training Data: {len(train_duplicates)}")
 test_duplicates = test_data[test_data.duplicated(subset=['data'], keep=False)]
 print(f"Duplicate Entries in Testing Data: {len(test_duplicates)}")
 
+
 train_data['data_str'] = train_data['data'].astype(str)
 test_data['data_str'] = test_data['data'].astype(str)
 
-# Checking if there are duplicates between the dataset that could affect the training process
 contamination = pd.merge(
     train_data[['data_str']],
     test_data[['data_str']],
@@ -35,6 +35,11 @@ print(f"Contaminated Entries between Training and Test Sets: {len(contamination)
 vectorizer = TfidfVectorizer()
 train_vectors = vectorizer.fit_transform(train_data['data_str'])
 test_vectors = vectorizer.transform(test_data['data_str'])
+
+# Check is there are any items that have a is_impossible = True and something in answers
+# impossible_entries = train_data[(train_data['is_impossible'] == True) & (train_data['answers'].str.len() > 0)]
+# print(f"Entries with is_impossible=True and non-empty answers: {len(impossible_entries)}")
+
 
 # Calculate cosine similarity between training and test data
 similarity_matrix = cosine_similarity(test_vectors, train_vectors)
@@ -57,3 +62,9 @@ plt.ylabel('Number of Entries')
 plt.xticks(rotation=45)
 plt.show()
 
+
+# Create new dataset without the similarites
+# similar_entries_mask = (similarity_matrix > threshold).any(axis=1)
+# non_similar_train_data = train_data[~similar_entries_mask]
+# non_similar_train_data.to_json('data/unzipped_data/non_similar_test.json', orient='records', lines=True)
+# print(f"New dataset created with {len(non_similar_train_data)} non-similar test entries.")
