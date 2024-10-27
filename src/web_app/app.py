@@ -22,7 +22,6 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 def read_file_content(file_path):
-    """Read content from different file types."""
     file_extension = file_path.split('.')[-1].lower()
     content = ""
     
