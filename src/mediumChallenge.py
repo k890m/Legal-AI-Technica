@@ -5,7 +5,7 @@ import random
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer
 import numpy as np
 
-
+# HappyFace transformers library
 model_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../models/roberta-base'))
 model = AutoModelForQuestionAnswering.from_pretrained(model_dir)
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
